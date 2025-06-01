@@ -6,8 +6,8 @@ services:
       args:
         CERT_FINGERPRINT: ${CERT_FINGERPRINT}
     environment:
-      USERNAM: ${FTP_DATA}
-      PASS: ${FTP_DATA}
+      USERNAM: ${USERNAME}
+      PASS: ${PASS}
     container_name: ftp
     volumes:
       - ./squid.conf:/opt/squid/squid.conf
