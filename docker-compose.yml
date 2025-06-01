@@ -1,0 +1,21 @@
+services:
+  squid:
+    build:
+      context:  .
+      dockerfile: dockerfile
+      args:
+        CERT_FINGERPRINT: ${CERT_FINGERPRINT}
+    environment:
+      USERNAM: ${FTP_DATA}
+      PASS: ${FTP_DATA}
+    container_name: ftp
+    volumes:
+      - ./squid.conf:/opt/squid/squid.conf
+      - ./allowed_hostnames:/opt/squid/allowed_hostnames
+      - ./allowed_ips:/opt/squid/allowed_ips
+      - ./banned_ips:/opt/squid/banned_ips
+      - ./logs:/opt/squid/log/
+    restart: always
+    ports:
+      - "3128:3128"
+      - "3129:3129"
