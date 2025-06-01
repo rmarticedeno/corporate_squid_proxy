@@ -6,16 +6,16 @@ services:
       args:
         CERT_FINGERPRINT: ${CERT_FINGERPRINT}
     environment:
-      USERNAM: ${USERNAME}
+      USERNAME: ${USERNAME}
       PASS: ${PASS}
-    container_name: ftp
+    container_name: squid
     volumes:
-      - ./squid.conf:/opt/squid/squid.conf
-      - ./allowed_hostnames:/opt/squid/allowed_hostnames
-      - ./allowed_ips:/opt/squid/allowed_ips
-      - ./banned_ips:/opt/squid/banned_ips
-      - ./logs:/opt/squid/log/
+      - squid-data-folder:/var/spool/squid/
+      - ./squid-logs:/var/log/squid
     restart: always
     ports:
       - "3128:3128"
       - "3129:3129"
+
+volumes:
+  squid-data-folder:
