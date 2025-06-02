@@ -23,7 +23,7 @@ function FindProxyForURL(url, host) {
 """)
 
 with open('allowed_hostnames', 'r') as r:
-    domains = ",".join(x for x in r.readlines())
+    domains = ",".join(f'"{x.strip()}"' for x in r.readlines())
 
 with open('/usr/share/nginx/html/proxy.pac', 'w') as w:
     w.write(pac.substitute({'entries': domains}))

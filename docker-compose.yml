@@ -10,8 +10,8 @@ services:
     container_name: squid
     volumes:
       - squid-data-folder:/var/spool/squid/
-      - ../squid-logs:/var/log/squid:rw
-    restart: always
+      - ./squid-logs:/var/log/squid:rw
+    restart: no
     ports:
       - "3128:3128"
       - "3129:3129"
@@ -22,8 +22,10 @@ services:
       dockerfile: nginx/Dockerfile
     environment:
       NGINX_HOST: ${NGINX_HOST}
+    restart: no
     ports:
       - "80:80"
+    container_name: nginx
   
 
 volumes:
