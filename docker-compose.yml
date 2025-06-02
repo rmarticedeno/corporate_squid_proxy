@@ -1,8 +1,8 @@
 services:
   squid:
     build:
-      context:  .
-      dockerfile: dockerfile
+      context:  squid
+      dockerfile: Dockerfile
     environment:
       USERNAME: ${USERNAME}
       PASS: ${PASS}
@@ -10,11 +10,21 @@ services:
     container_name: squid
     volumes:
       - squid-data-folder:/var/spool/squid/
-      - ./squid-logs:/var/log/squid:rw
+      - ../squid-logs:/var/log/squid:rw
     restart: always
     ports:
       - "3128:3128"
       - "3129:3129"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    environment:
+      NGINX_HOST: ${NGINX_HOST}
+    ports:
+      - "80:80"
+  
 
 volumes:
   squid-data-folder:
