@@ -3,16 +3,15 @@ services:
     build:
       context:  .
       dockerfile: dockerfile
-      args:
-        CERT_FINGERPRINT: ${CERT_FINGERPRINT}
     environment:
       USERNAME: ${USERNAME}
       PASS: ${PASS}
+      REALM: ${REALM}
     container_name: squid
     volumes:
       - squid-data-folder:/var/spool/squid/
-      - ./squid-logs:/var/log/squid
-    restart: always
+      - ./squid-logs:/var/log/squid:rw
+    restart: no
     ports:
       - "3128:3128"
       - "3129:3129"

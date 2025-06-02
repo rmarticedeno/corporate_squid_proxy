@@ -1,0 +1,11 @@
+#!/usr/bin/expect
+set USER [lindex $argv 0]
+set PASS [lindex $argv 1]
+set REALM [lindex $argv 2]
+set timeout 1
+spawn htdigest -c /etc/squid/users $REALM $USER
+expect "New password:\r"
+send -- "$PASS\r"
+expect "Re-type new password:\r"
+send -- "$PASS\r"
+expect eof
